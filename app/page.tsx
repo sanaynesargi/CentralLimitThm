@@ -219,7 +219,7 @@ export default function Home() {
         borderColor="gray.700"
         p={1.5}
       >
-        <HStack spacing={3} justify="flex-end" pr={4}>
+        <HStack gap={3} justify="flex-end" pr={4}>
           <Box
             as="button"
             onClick={() => setActiveView("visualization")}
@@ -269,7 +269,7 @@ export default function Home() {
               p={2}
               overflowY="auto"
             >
-        <VStack align="stretch" spacing={1.5}>
+        <VStack align="stretch" gap={1.5}>
           <Heading size="sm" color="gray.100" mb={1}>
             Settings
           </Heading>
@@ -603,7 +603,8 @@ export default function Home() {
                   color: "#cbd5e0",
                 }}
                 labelStyle={{ color: "#e2e8f0" }}
-                formatter={(value: number, name: string) => {
+                formatter={(value: number | undefined, name: string | undefined) => {
+                  if (value === undefined || name === undefined) return ["", ""];
                   if (name === "normalY") {
                     return [value.toFixed(6), "Normal PMF"];
                   }
@@ -648,7 +649,7 @@ export default function Home() {
                 border="1px solid"
                 borderColor="gray.700"
               >
-                <VStack align="stretch" spacing={6}>
+                <VStack align="stretch" gap={6}>
                   {/* Introduction */}
                   <Box>
                     <Heading size="md" color="gray.100" mb={3}>
@@ -663,7 +664,7 @@ export default function Home() {
                     <Text color="gray.300" fontSize="sm" mb={2} fontWeight="bold">
                       Mathematically, the steps are:
                     </Text>
-                    <VStack align="stretch" spacing={1} ml={4}>
+                    <VStack align="stretch" gap={1} ml={4}>
                       <Text color="gray.300" fontSize="sm">1. Center and scale the binomial random variable.</Text>
                       <Text color="gray.300" fontSize="sm">2. Approximate factorials using Stirling's formula.</Text>
                       <Text color="gray.300" fontSize="sm">3. Expand logarithms of ratios using Taylor series.</Text>
