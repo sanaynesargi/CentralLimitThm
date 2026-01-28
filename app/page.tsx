@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo } from "react";
-import { Box, Heading, VStack, Text, Flex, HStack } from "@chakra-ui/react";
+import { Box, Heading, VStack, Text, Flex, HStack, Link } from "@chakra-ui/react";
 import { Slider, Switch } from "@chakra-ui/react";
 import {
   XAxis,
@@ -143,7 +143,7 @@ function generateBinomialData(
 
 export default function Home() {
   const { setColorMode } = useColorMode();
-  const [activeView, setActiveView] = React.useState<"visualization" | "notes">("visualization");
+  const [activeView, setActiveView] = React.useState<"visualization" | "notes" | "references">("visualization");
   const [n, setN] = React.useState(50);
   const [p, setP] = React.useState(0.5);
   const [xMin, setXMin] = React.useState(20);
@@ -250,6 +250,22 @@ export default function Home() {
           >
             <Text fontSize="xs" fontWeight="medium">
               Notes on the Proof
+            </Text>
+          </Box>
+          <Box
+            as="button"
+            onClick={() => setActiveView("references")}
+            px={3}
+            py={1}
+            borderRadius="md"
+            bg={activeView === "references" ? "blue.600" : "gray.700"}
+            color={activeView === "references" ? "white" : "gray.300"}
+            _hover={{ bg: activeView === "references" ? "blue.700" : "gray.600" }}
+            cursor="pointer"
+            transition="all 0.2s"
+          >
+            <Text fontSize="xs" fontWeight="medium">
+              References/Notes
             </Text>
           </Box>
         </HStack>
@@ -630,7 +646,7 @@ export default function Home() {
         </Box>
       </Flex>
           </>
-        ) : (
+        ) : activeView === "notes" ? (
           /* Notes Section */
           <Flex flex={1} direction="column" height="100%" overflowY="auto">
             <Box p={6} maxWidth="1200px" mx="auto" width="100%">
@@ -862,7 +878,173 @@ export default function Home() {
               </Box>
             </Box>
           </Flex>
-        )}
+        ) : activeView === "references" ? (
+          <Flex flex={1} direction="column" height="100%" overflowY="auto">
+            <Box p={6} maxWidth="1400px" mx="auto" width="100%">
+              <Heading size="xl" color="gray.100" mb={4}>
+                References/Notes
+              </Heading>
+              <Text color="gray.400" mb={6} fontSize="sm">
+                by: Sanay Nesargi
+              </Text>
+
+              <Flex direction="row" gap={6} align="stretch">
+                {/* Desmos Graphs Section */}
+                <Box
+                  flex={1}
+                  p={4}
+                  bg="gray.800"
+                  borderRadius="md"
+                  border="1px solid"
+                  borderColor="gray.700"
+                >
+                  <Heading size="md" color="gray.100" mb={4}>
+                    Desmos Graphs (which illustrate the same principle)
+                  </Heading>
+                  <VStack align="stretch" gap={4}>
+                    {/* First Desmos Graph - Proportions */}
+                    <Box>
+                      <Text color="gray.300" fontSize="sm" mb={2} fontWeight="medium">
+                        Proportions
+                      </Text>
+                      <Link
+                        href="https://www.desmos.com/calculator/nbhjvcpu3o"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        display="block"
+                        textDecoration="none"
+                      >
+                        <Box
+                          p={3}
+                          bg="gray.700"
+                          borderRadius="md"
+                          border="1px solid"
+                          borderColor="gray.600"
+                          _hover={{ bg: "gray.600", borderColor: "blue.500" }}
+                          transition="all 0.2s"
+                        >
+                          <Text color="blue.400" fontSize="sm" fontWeight="medium">
+                            Open Proportions Graph →
+                          </Text>
+                          <Text color="gray.400" fontSize="xs" mt={1}>
+                            https://www.desmos.com/calculator/nbhjvcpu3o
+                          </Text>
+                        </Box>
+                      </Link>
+                    </Box>
+
+                    {/* Second Desmos Graph - Non Proportions */}
+                    <Box>
+                      <Text color="gray.300" fontSize="sm" mb={2} fontWeight="medium">
+                        Non Proportions
+                      </Text>
+                      <Link
+                        href="https://www.desmos.com/calculator/ytwqpvcvya"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        display="block"
+                        textDecoration="none"
+                      >
+                        <Box
+                          p={3}
+                          bg="gray.700"
+                          borderRadius="md"
+                          border="1px solid"
+                          borderColor="gray.600"
+                          _hover={{ bg: "gray.600", borderColor: "blue.500" }}
+                          transition="all 0.2s"
+                        >
+                          <Text color="blue.400" fontSize="sm" fontWeight="medium">
+                            Open Non Proportions Graph →
+                          </Text>
+                          <Text color="gray.400" fontSize="xs" mt={1}>
+                            https://www.desmos.com/calculator/ytwqpvcvya
+                          </Text>
+                        </Box>
+                      </Link>
+                    </Box>
+                  </VStack>
+                </Box>
+
+                {/* Citations Section */}
+                <Box
+                  flex={1}
+                  p={4}
+                  bg="gray.800"
+                  borderRadius="md"
+                  border="1px solid"
+                  borderColor="gray.700"
+                >
+                  <Heading size="md" color="gray.100" mb={4}>
+                    Citations
+                  </Heading>
+                  <VStack align="stretch" gap={3}>
+                    <Box>
+                      <Text color="gray.300" fontSize="sm" lineHeight="tall">
+                        <Text as="span" fontWeight="bold">De Moivre, A.</Text> (1733). Approximatio ad summam terminorum binomii (a+b)^n in seriem expansi.{" "}
+                        <Text as="span" fontStyle="italic">Philosophical Transactions of the Royal Society of London</Text>, 33, 5-12.
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text color="gray.300" fontSize="sm" lineHeight="tall">
+                        <Text as="span" fontWeight="bold">Laplace, P. S.</Text> (1812).{" "}
+                        <Text as="span" fontStyle="italic">Théorie analytique des probabilités</Text>. Paris: Courcier.
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text color="gray.300" fontSize="sm" lineHeight="tall">
+                        <Text as="span" fontWeight="bold">Feller, W.</Text> (1968).{" "}
+                        <Text as="span" fontStyle="italic">An Introduction to Probability Theory and Its Applications</Text> (Vol. 1, 3rd ed.). New York: Wiley.
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text color="gray.300" fontSize="sm" lineHeight="tall">
+                        <Text as="span" fontWeight="bold">Durrett, R.</Text> (2019).{" "}
+                        <Text as="span" fontStyle="italic">Probability: Theory and Examples</Text> (5th ed.). Cambridge University Press.
+                      </Text>
+                    </Box>
+                    <Box>
+                      <Text color="gray.300" fontSize="sm" lineHeight="tall">
+                        <Text as="span" fontWeight="bold">Billingsley, P.</Text> (1995).{" "}
+                        <Text as="span" fontStyle="italic">Probability and Measure</Text> (3rd ed.). New York: Wiley.
+                      </Text>
+                    </Box>
+                  </VStack>
+
+                  {/* Additional Resources */}
+                  <Box mt={4} pt={4} borderTop="1px solid" borderColor="gray.700">
+                    <Heading size="sm" color="gray.100" mb={3}>
+                      Additional Resources
+                    </Heading>
+                    <Box
+                      p={3}
+                      bg="gray.700"
+                      borderRadius="md"
+                      border="1px solid"
+                      borderColor="gray.600"
+                    >
+                      <Text color="gray.300" fontSize="sm" mb={2} lineHeight="tall">
+                        <Text as="span" fontWeight="bold">Gundersen, G.</Text> (2025, March 8). De Moivre–Laplace Theorem.{" "}
+                        <Link
+                          href="https://gregorygundersen.com/blog/2025/03/08/de-moivre-laplace/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          color="blue.400"
+                          _hover={{ textDecoration: "underline" }}
+                        >
+                          gregorygundersen.com/blog/2025/03/08/de-moivre-laplace/
+                        </Link>
+                      </Text>
+                      <Text color="gray.400" fontSize="xs" mt={2} fontStyle="italic" lineHeight="tall">
+                        Note: This article by Gregory Gundersen provides an excellent explanation of the same derivations. I discovered it after completing much of my own work and found it to be a clear and well-presented treatment of the topic.
+                      </Text>
+                    </Box>
+                  </Box>
+                </Box>
+              </Flex>
+            </Box>
+          </Flex>
+        ) : null}
       </Flex>
     </Flex>
     </Box>
