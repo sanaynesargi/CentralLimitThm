@@ -14,7 +14,6 @@ import {
   ReferenceLine,
   ReferenceArea,
 } from "recharts";
-import { useColorMode } from "@/components/ui/color-mode";
 import { BlockMath, InlineMath } from "react-katex";
 import "katex/dist/katex.min.css";
 
@@ -142,7 +141,6 @@ function generateBinomialData(
 }
 
 export default function Home() {
-  const { setColorMode } = useColorMode();
   const [activeView, setActiveView] = React.useState<"visualization" | "notes" | "references">("visualization");
   const [n, setN] = React.useState(50);
   const [p, setP] = React.useState(0.5);
